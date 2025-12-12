@@ -1,0 +1,76 @@
+# === إعدادات المشروع ===
+project:
+  name: "DeepSeek Mini"
+  version: "1.0.0"
+  author: "Your Name"
+  description: "نموذج لغوي عصبي صغير مع واجهة رسومية"
+
+# === إعدادات النموذج ===
+model:
+  vocab_size: 50000
+  d_model: 768
+  n_heads: 12
+  n_layers: 12
+  max_seq_len: 2048
+  dropout: 0.1
+  ffn_dim: 3072
+  use_bias: true
+  
+# === إعدادات التدريب ===
+training:
+  batch_size: 32
+  micro_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 3e-4
+  warmup_steps: 2000
+  total_steps: 100000
+  weight_decay: 0.01
+  grad_clip: 1.0
+  checkpoint_steps: 5000
+  eval_steps: 1000
+  save_dir: "./checkpoints"
+  
+# === إعدادات Tokenizer ===
+tokenizer:
+  type: "bpe"
+  vocab_size: 50000
+  special_tokens:
+    bos: "<bos>"
+    eos: "<eos>"
+    pad: "<pad>"
+    unk: "<unk>"
+  lowercase: false
+  
+# === إعدادات البيانات ===
+data:
+  train_path: "./data/processed/train.pt"
+  val_path: "./data/processed/val.pt"
+  test_path: "./data/processed/test.pt"
+  max_length: 2048
+  num_workers: 4
+  
+# === إعدادات الاستدلال ===
+inference:
+  max_new_tokens: 512
+  temperature: 0.8
+  top_p: 0.9
+  top_k: 50
+  repetition_penalty: 1.1
+  do_sample: true
+  
+# === إعدادات GUI ===
+gui:
+  window_size: [1200, 800]
+  theme: "dark"
+  font_family: "Segoe UI"
+  font_size: 12
+  show_sidebar: true
+  max_history: 100
+  
+# === إعدادات النظام ===
+system:
+  device: "cuda"  # أو "cpu"
+  seed: 42
+  precision: "fp32"  # أو "fp16"
+  log_level: "INFO"
+  debug: false
